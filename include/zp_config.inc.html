@@ -1,0 +1,155 @@
+<div class="wrap">
+    <h2><?php _e('ZenphotoPress Configuration','zenphotopress') ?></h2>
+
+    <form method="post" action="">
+
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row"><?php _e('Zenphoto gallery URL:','zenphotopress') ?></th>
+                <td>
+                    <input name="zenphotopress_web_path" type="text" id="zenphotopress_web_path"
+                           value="<?php form_option('zenphotopress_web_path'); ?>" size="40"/><br/>
+                    <?php _e('For example: http://www.example.com/zenphoto','zenphotopress') ?>
+                </td>
+            </tr>
+            <?php if ($zenphotopress_show_admin_path) { ?>
+            <tr valign="top">
+                <th scope="row"><?php _e('Zenphoto data path:','zenphotopress') ?></th>
+                <td>
+                    <input name="zenphotopress_admin_path" type="text" id="zenphotopress_admin_path"
+                           value="<?php form_option('zenphotopress_admin_path'); ?>" size="40"/><br/>
+                    <?php _e('For example:  /var/www/example.com/zenphoto/zp-data','zenphotopress') ?>
+                </td>
+            </tr>
+            <?php } ?>
+        </table>
+
+        <?php if (get_option('zp_web_path') != '') { ?>
+        <h3><?php _e('Update to latest ZenphotoPress version (optional)') ?></h3>
+        <p>An installation of a ZenphotoPress version older than 1.3 has been detected. Click "Update" to import old
+            path and popup preferences. This operation will delete the old values in the database, so be sure to <b>backup</b>
+            first.</p>
+        <div align="center">
+            <form method="post" action="">
+                <input type="submit" name="zenphotopress_update" value="<?php _e('Update','zenphotopress') ?>"/>
+            </form>
+        </div>
+        <?php } ?>
+
+        <h3><?php _e('Lightbox preferences') ?></h3>
+        <p><?php _e('Here you can make ZenphotoPress work with Lightbox-like scripts. Add a value for the &quot;rel&quot; attribute or leave blank to disable integration. Please notice that you\'ll still need to install Lightbox (or any other script) separately. If you don\'t know what this means, chances are good you don\'t need it.','zenphotopress') ?></p>
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row"><?php _e('Value for rel','zenphotopress') ?></th>
+                <td>
+                    <input name="zenphotopress_rel_value" type="text" id="zenphotopress_rel_value"
+                           value="<?php form_option('zenphotopress_rel_value'); ?>" size="40"/><br/>
+                    <?php _e('For example: &quot;lightbox&quot; for Lightbox','zenphotopress') ?>
+                </td>
+            </tr>
+        </table>
+
+        <h3><?php _e('Custom popup preferences (optional)') ?></h3>
+        <p><?php _e('These options will override the defaults for the popup window, in order to avoid repetitive menu selections. They are not mandatory (ZenphotoPress will fallback on the default ones).','zenphotopress') ?></p>
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row"><?php _e('What do you want to include?','zenphotopress') ?></th>
+                <td>
+                    <?php
+		 $options = array(	array('value' => 'thumb','title' => __('Image Thumbnail','zenphotopress')),
+                    array('value' => 'title','title' => __('Image Title','zenphotopress')),
+                    array('value' => 'album','title' => __('Album Name','zenphotopress')),
+                    array('value' => 'custom','title' => __('Custom Text','zenphotopress')));
+                    zp_printFormSelect('zenphotopress_custom_what',$options,get_option('zenphotopress_custom_what'));
+                    ?>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Do you want to link it?','zenphotopress') ?></th>
+                <td>
+                    <?php
+		 $options = array(	array('value' => 'image','title' => __('Link to Image','zenphotopress')),
+                    array('value' => 'album','title' => __('Link to Album','zenphotopress')),
+                    array('value' => 'none','title' => __('No Link','zenphotopress')),
+                    array('value' => 'custom','title' => __('Custom URL','zenphotopress')));
+                    zp_printFormSelect('zenphotopress_custom_link',$options,get_option('zenphotopress_custom_link'));
+                    ?>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Do you want to close the popup window?','zenphotopress') ?></th>
+                <td>
+                    <?php
+		 $options = array(	array('value' => 'true','title' => __('Close after inserting','zenphotopress')),
+                    array('value' => 'false','title' => __('Keep open','zenphotopress')));
+                    zp_printFormSelect('zenphotopress_custom_close',$options,get_option('zenphotopress_custom_close'));
+                    ?>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Images to show in a popup page','zenphotopress') ?></th>
+                <td>
+                    <?php
+		 $options = array(	array('title' => 12, 'value' => 12),
+                    array('title' => 24, 'value' => 24),
+                    array('title' => 48, 'value' => 48),
+                    array('title' => 96, 'value' => 96));
+                    zp_printFormSelect('zenphotopress_custom_show',$options,get_option('zenphotopress_custom_show'));
+                    ?>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Order images by','zenphotopress') ?></th>
+                <td>
+                    <?php
+		           $options = array(	array('title' => __('Sort Order','zenphotopress'), 'value' => 'sort_order'),
+                    array('title' => __('Title','zenphotopress'), 'value' => 'title'),
+                    array('title' => __('ID','zenphotopress'), 'value' => 'id'));
+                    zp_printFormSelect('zenphotopress_custom_orderby',$options,get_option('zenphotopress_custom_orderby'));
+                    ?>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Text Wrap','zenphotopress') ?></th>
+                <td>
+                    <?php
+		 $options = array(	array('value' => 'none','title' => __('No wrap','zenphotopress')),
+                    array('value' => 'left','title' => __('Right','zenphotopress')),
+                    array('value' => 'right','title' => __('Left','zenphotopress')));
+                    zp_printFormSelect('zenphotopress_custom_wrap',$options,get_option('zenphotopress_custom_wrap'));
+                    ?>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Image Size','zenphotopress') ?></th>
+                <td>
+                    <?php
+		 $options = array(	array('value' => 'default','title' => __('Default size (thumbnail)','zenphotopress')),
+                    array('value' => 'full','title' => __('Full size','zenphotopress')),
+                    array('value' => 'custom','title' => __('Custom size','zenphotopress')));
+                    zp_printFormSelect('zenphotopress_custom_size',$options,get_option('zenphotopress_custom_size'));
+                    ?>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Custom size:','zenphotopress') ?> <?php _e('Width (px)','zenphotopress') ?></th>
+                <td>
+                    <input name="zenphotopress_custom_width" type="text" id="zp_custom_width"
+                           value="<?php form_option('zenphotopress_custom_width'); ?>" size="5"/>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Custom size:','zenphotopress') ?> <?php _e('Height (px)','zenphotopress') ?></th>
+                <td>
+                    <input name="zenphotopress_custom_height" type="text" id="zp_custom_height"
+                           value="<?php form_option('zenphotopress_custom_height'); ?>" size="5"/>
+                </td>
+            </tr>
+        </table>
+
+        <p class="submit">
+            <input type="submit" name="info_update" value="<?php _e('Update Options','zenphotopress') ?> &raquo;"/>
+        </p>
+    </form>
+
+</div>

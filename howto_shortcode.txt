@@ -1,0 +1,23 @@
+SHORTCODE HOWTO
+
+The shortcode for inserting a ZenphotoPress badge into Wordpress posts is
+[zenphotopress].
+
+It is possible to add some parameters:
+- sort
+   Is the sorting method for the displayed thumbnails. Currently accepts
+   "random", "latest", "sort_order", "title", "id" as possible values.
+   Default is "random".
+- number
+   The number of thumbnails to show in the badge.
+   Default is 3.
+- album
+   The ID of the album to pick the thumbnails from.
+   Default is to pick from all the albums.
+   
+All the parameters are optional. Given the default values, a shortcode like
+[zenphotopress]
+has the same effect as
+[zenphotopress sort=random number=3 album=0]
+   
+(Notice that album=0 means "pick from all albums")
